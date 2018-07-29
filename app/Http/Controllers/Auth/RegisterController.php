@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -48,10 +49,13 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+        // Using max:191 instead of 255 due to MySQL version limitation
+
         return Validator::make($data, [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
+            'name' => 'required|max:191',
+            'username' => 'required|max:191|unique:users|alpha_dash',
+            'email' => 'required|email|max:191|unique:users',
+            'password' => 'required|min:6|confirmed',
         ]);
     }
 
@@ -65,8 +69,9 @@ class RegisterController extends Controller
     {
         return User::create([
             'name' => $data['name'],
+            'username' => $data['username'],
             'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+            'password' => bcrypt($data['password']),
         ]);
     }
 }
