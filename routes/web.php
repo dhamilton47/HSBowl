@@ -21,6 +21,7 @@ Route::get('register/confirm', 'Auth\RegisterConfirmationController@index')->nam
 
 Route::get('profiles/{user}', 'ProfilesController@show')->middleware('auth')->name('profile');
 
+Route::post('api/users/{user}/avatar', 'Api\UserAvatarController@store')->middleware('auth')->name('avatar');
 Route::group([
     'prefix' => 'admin',
     'middleware' => 'auth',

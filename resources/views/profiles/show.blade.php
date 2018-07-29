@@ -2,8 +2,6 @@
 
 @section('content')
     <div class="col-md-8 col-md-offset-2">
-        <div class="page-header">
-            {{ $user->name }}
-        </div>
+        <avatar-form :user="{{ $profileUser }}"></avatar-form>
     </div>
 @endsection

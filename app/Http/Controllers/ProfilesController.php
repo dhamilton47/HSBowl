@@ -9,6 +9,11 @@ class ProfilesController extends Controller
 {
     public function show(User $user)
     {
-        return view('profiles.show', compact('user'));
-    }
+        $data = ['profileUser' => $user];
+
+        if (request()->expectsJson()) {
+            return $data;
+        }
+
+        return view('profiles.show', $data);    }
 }

@@ -19,6 +19,8 @@ class User extends Authenticatable
         'username',
         'email',
         'password',
+        'confirmation_token',
+        'avatar_path'
     ];
 
     /**
@@ -29,7 +31,7 @@ class User extends Authenticatable
     protected $hidden = [
         'email',
         'password',
-        'remember_token',
+        'remember_token'
     ];
 
     /**
@@ -60,5 +62,16 @@ class User extends Authenticatable
         $this->confirmation_token = null;
 
         $this->save();
+    }
+
+    /**
+     * Get the path to the user's avatar.
+     *
+     * @param  string $avatar
+     * @return string
+     */
+    public function getAvatarPathAttribute($avatar)
+    {
+        return asset($avatar ? ('storage/' . $avatar) : 'images/avatars/default.png');
     }
 }
