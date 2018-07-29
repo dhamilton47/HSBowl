@@ -35,20 +35,15 @@ class RegisterUsersTest extends TestCase
     }
 
     /** @test */
-    public function user_name_is_required()
+    public function name_is_optional()
     {
-        $this->withExceptionHandling();
-        $this->from(route('register'));
-
         $response = $this->post(route('register'), $this->validParams([
             'name' => '',
         ]));
 
-        $response->assertRedirect(route('register'));
-        $response->assertSessionHasErrors('name');
-//        $response->assertRedirect(route('home'));
-        $this->assertFalse(Auth::check());
-        $this->assertCount(0, User::all());
+        $response->assertRedirect('/');
+        $this->assertTrue(Auth::check());
+        $this->assertCount(1, User::all());
     }
 
     /** @test */

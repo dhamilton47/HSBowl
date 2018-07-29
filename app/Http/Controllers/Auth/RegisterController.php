@@ -52,7 +52,7 @@ class RegisterController extends Controller
         // Using max:191 instead of 255 due to MySQL version limitation
 
         return Validator::make($data, [
-            'name' => 'required|max:191',
+            'name' => 'max:191',
             'username' => 'required|max:191|unique:users|alpha_dash',
             'email' => 'required|email|max:191|unique:users',
             'password' => 'required|min:6|confirmed',
