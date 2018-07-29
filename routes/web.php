@@ -18,3 +18,11 @@ Auth::routes();
 Route::get('home', 'HomeController@index')->name('home');
 
 Route::get('register/confirm', 'Auth\RegisterConfirmationController@index')->name('register.confirm');
+
+Route::group([
+    'prefix' => 'admin',
+    'middleware' => 'auth',
+    'namespace' => 'Admin'
+], function () {
+    Route::get('', 'DashboardController@index')->name('admin.dashboard.index');
+});
