@@ -33,6 +33,15 @@ class User extends Authenticatable
     ];
 
     /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'confirmed' => 'boolean',
+    ];
+
+    /**
      * Get the route key name for User.
      *
      * @return string
@@ -42,5 +51,14 @@ class User extends Authenticatable
         return 'username';
     }
 
+    /**
+     * Mark the user's account as confirmed.
+     */
+    public function confirm()
+    {
+        $this->confirmed = true;
+        $this->confirmation_token = null;
 
+        $this->save();
+    }
 }

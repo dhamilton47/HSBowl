@@ -4,12 +4,20 @@ namespace Tests\Feature\Auth;
 
 use App\User;
 use Tests\TestCase;
+use App\Mail\PleaseConfirmYourEmail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Mail;
 
 class RegisterUsersTest extends TestCase
 {
+    public function setUp()
+    {
+        parent::setUp();
+
+        Mail::fake();
+    }
+
     /** @test */
     public function users_can_register_an_account()
     {
@@ -32,6 +40,43 @@ class RegisterUsersTest extends TestCase
             $this->assertEquals('johndoe@example.com', $user->email);
             $this->assertTrue(Hash::check('secret', $user->password));
         });
+    }
+
+    /** @test */
+    public function a_confirmation_email_is_sent_upon_registration()
+    {
+        $this->post(route('register'), $this->validParams());
+
+        Mail::assertQueued(PleaseConfirmYourEmail::class);
+    }
+
+    /** @test */
+    public function user_can_fully_confirm_their_email_addresses()
+    {
+        $this->post(route('register'), $this->validParams([
+            'email' => 'john@example.com',
+        ]));
+
+        $user = User::whereEmail('john@example.com')->first();
+
+        $this->assertFalse($user->confirmed);
+        $this->assertNotNull($user->confirmation_token);
+
+        $this->get(route('register.confirm', ['token' => $user->confirmation_token]))
+            ->assertRedirect(route('home'));
+
+        tap($user->fresh(), function ($user) {
+            $this->assertTrue($user->confirmed);
+            $this->assertNull($user->confirmation_token);
+        });
+    }
+
+    /** @test */
+    public function confirming_an_invalid_token()
+    {
+        $this->get(route('register.confirm', ['token' => 'invalid']))
+            ->assertRedirect(route('home'))
+            ->assertSessionHas('flash', 'Invalid email confirmation.');
     }
 
     /** @test */
