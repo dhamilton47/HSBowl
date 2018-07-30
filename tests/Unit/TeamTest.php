@@ -38,4 +38,13 @@ class TeamTest extends TestCase
 
         $this->assertEquals($team->level, 'varsity');
     }
+
+    /** @test */
+    function a_team_has_multiple_players()
+    {
+        $this->assertInstanceOf(
+            'Illuminate\Database\Eloquent\Collection',
+            $this->team->players
+        );
+    }
 }

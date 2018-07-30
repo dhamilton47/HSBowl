@@ -74,4 +74,14 @@ class User extends Authenticatable
     {
         return asset($avatar ? ('storage/' . $avatar) : 'images/avatars/default.png');
     }
+
+    /**
+     * A user can administer many schools.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function administers()
+    {
+        return $this->belongsToMany(School::class, 'user_permission');
+    }
 }

@@ -56,4 +56,13 @@ class SchoolTest extends TestCase
             $this->school->teams
         );
     }
+
+    /** @test */
+    function a_school_can_have_many_administrators()
+    {
+        $this->assertInstanceOf(
+            'Illuminate\Database\Eloquent\Collection',
+            $this->school->administrators
+        );
+    }
 }

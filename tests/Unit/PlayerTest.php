@@ -8,12 +8,19 @@ use Tests\TestCase;
 
 class PlayerTest extends TestCase
 {
+    protected $player;
+
+    public function setUp()
+    {
+        parent::setUp();
+
+        $this->player = create(Player::class);
+    }
+
     /** @test */
     public function a_player_has_a_school()
     {
-        $player = create(Player::class);
-
-        $this->assertInstanceOf(School::class, $player->school);
+        $this->assertInstanceOf(School::class, $this->player->school);
     }
 
     /** @test */
@@ -54,5 +61,14 @@ class PlayerTest extends TestCase
         $player = create(Player::class, ['gender' => 'sex']);
 
         $this->assertEquals($player->gender, 'sex');
+    }
+
+    /** @test */
+    function a_player_can_play_on_multiple_teams_for_a_school()
+    {
+        $this->assertInstanceOf(
+            'Illuminate\Database\Eloquent\Collection',
+            $this->player->teams
+        );
     }
 }

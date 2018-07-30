@@ -29,4 +29,14 @@ class School extends Model
     {
         return $this->hasMany(Team::class);
     }
+
+    /**
+     * A school has many administrators.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function administrators()
+    {
+        return $this->belongsToMany(User::class, 'user_permission');
+    }
 }

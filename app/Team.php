@@ -36,4 +36,14 @@ class Team extends Model
     {
         return $this->belongsTo(School::class, 'school_id');
     }
+
+    /**
+     * A team can has many players.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function players()
+    {
+        return $this->belongsToMany(Player::class);
+    }
 }
