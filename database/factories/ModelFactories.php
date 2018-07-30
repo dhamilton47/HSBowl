@@ -24,3 +24,14 @@ $factory->define(App\User::class, function (Faker $faker) {
         'remember_token' => str_random(10),
     ];
 });
+
+$factory->define(App\School::class, function (Faker $faker) {
+    static $password;
+
+    return [
+        'school_name' => $faker->name,
+//        'school_city' => $faker->city,
+//        'school_state' => $faker->stateAbbr,
+//        'school_district' => $faker->word,
+    ];
+});
