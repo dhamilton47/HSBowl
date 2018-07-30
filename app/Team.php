@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class School extends Model
+class Team extends Model
 {
     /**
      * Don't auto-apply mass assignment protection.
@@ -14,6 +14,13 @@ class School extends Model
     protected $guarded = [];
 
     /**
+     * The relationships to always eager-load.
+     *
+     * @var array
+     */
+    protected $with = ['school',];
+
+    /**
      * The attributes that should be cast to native types.
      *
      * @var array
@@ -21,12 +28,12 @@ class School extends Model
     protected $casts = [];
 
     /**
-     * A school has many teams.
+     * A team belongs to a school.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function teams()
+    public function school()
     {
-        return $this->hasMany(Team::class);
+        return $this->belongsTo(School::class, 'school_id');
     }
 }

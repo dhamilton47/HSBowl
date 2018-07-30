@@ -26,12 +26,21 @@ $factory->define(App\User::class, function (Faker $faker) {
 });
 
 $factory->define(App\School::class, function (Faker $faker) {
-    static $password;
-
     return [
         'school_name' => $faker->name,
 //        'school_city' => $faker->city,
 //        'school_state' => $faker->stateAbbr,
 //        'school_district' => $faker->word,
     ];
+});
+
+$factory->define(App\Team::class, function (Faker $faker) {
+    return [
+        'school_id' => function () {
+            return factory(\App\School::class)->create()->id;
+        },
+//        'team_type' => $faker->word,
+//        'team_level' => $faker->word,
+    ];
+});
 });

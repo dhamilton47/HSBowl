@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\Team;
 use App\School;
 use Tests\TestCase;
 
@@ -46,5 +47,14 @@ class SchoolTest extends TestCase
         $school = create(School::class, ['school_district' => 'Metro']);
 
         $this->assertEquals($school->school_district, 'Metro');
+    }
+
+    /** @test */
+    function a_school_has_teams()
+    {
+        $this->assertInstanceOf(
+            'Illuminate\Database\Eloquent\Collection',
+            $this->school->teams
+        );
     }
 }
