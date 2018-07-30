@@ -16,8 +16,8 @@ class CreateTeamsTable extends Migration
         Schema::create('teams', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('school_id');
-            $table->string('team_type', 25)->default('men');
-            $table->string('team_level', 25)->default('varsity');
+            $table->string('type', 25)->default('women');
+            $table->string('level', 25)->default('varsity');
             $table->timestamps();
         });
     }

@@ -27,10 +27,10 @@ $factory->define(App\User::class, function (Faker $faker) {
 
 $factory->define(App\School::class, function (Faker $faker) {
     return [
-        'school_name' => $faker->name,
-//        'school_city' => $faker->city,
-//        'school_state' => $faker->stateAbbr,
-//        'school_district' => $faker->word,
+        'name' => $faker->name,
+//        'city' => $faker->city,
+//        'state' => $faker->stateAbbr,
+//        'district' => $faker->word,
     ];
 });
 
@@ -39,8 +39,17 @@ $factory->define(App\Team::class, function (Faker $faker) {
         'school_id' => function () {
             return factory(\App\School::class)->create()->id;
         },
-//        'team_type' => $faker->word,
-//        'team_level' => $faker->word,
+//        'type' => $faker->word,
+//        'level' => $faker->word,
     ];
 });
+
+$factory->define(App\Match::class, function (Faker $faker) {
+    return [
+        'user_id' => function () {
+            return factory(\App\User::class)->create()->id;
+        },
+//        'type' => $faker->word,
+//        'level' => $faker->word,
+    ];
 });

@@ -2,7 +2,6 @@
 
 namespace Tests\Unit;
 
-use App\Team;
 use App\School;
 use Tests\TestCase;
 
@@ -20,33 +19,33 @@ class SchoolTest extends TestCase
     /** @test */
     function a_school_has_a_name()
     {
-        $school = create(School::class, ['school_name' => 'South Windsor High School']);
+        $school = create(School::class, ['name' => 'South Windsor High School']);
 
-        $this->assertEquals($school->school_name, 'South Windsor High School');
+        $this->assertEquals($school->name, 'South Windsor High School');
     }
 
     /** @test */
     function a_school_has_a_city()
     {
-        $school = create(School::class, ['school_city' => 'New Haven']);
+        $school = create(School::class, ['city' => 'New Haven']);
 
-        $this->assertEquals($school->school_city, 'New Haven');
+        $this->assertEquals($school->city, 'New Haven');
     }
 
     /** @test */
     function a_school_has_a_state()
     {
-        $school = create(School::class, ['school_state' => 'CT']);
+        $school = create(School::class, ['state' => 'CT']);
 
-        $this->assertEquals($school->school_state, 'CT');
+        $this->assertEquals($school->state, 'CT');
     }
 
     /** @test */
     function a_school_has_a_district()
     {
-        $school = create(School::class, ['school_district' => 'Metro']);
+        $school = create(School::class, ['district' => 'Metro']);
 
-        $this->assertEquals($school->school_district, 'Metro');
+        $this->assertEquals($school->district, 'Metro');
     }
 
     /** @test */
