@@ -31,7 +31,14 @@ This is web based application for recording and reporting on high school bowling
 ```
 
 ## Planned Features
-* Still some design decisions to be made regarding who a user can score for vs. who they have access to for school and player base data editing.  Not clear yet as to best location for these decisions either. 
+
+#### Open Issues: 
+* Administration - current thoughts are to have a multi-section or multi-page registration process to set up the administration structure:
+    * Role: Athletic Director, Coach, Scorer.
+    * School and Team types.
+    * Different levels of account confirmation dependent on role.
+    * Will require a table of top officials for sign-offs (probably AD's).
+    * Will be editable after registration.
 ```
 * Administration Perspective Integration of:
     - User Class
