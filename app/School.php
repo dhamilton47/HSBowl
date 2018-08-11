@@ -14,6 +14,16 @@ class School extends Model
     protected $guarded = [];
 
     /**
+     * The relationships to always eager-load.
+     *
+     * @var array
+     */
+    protected $with = [
+//        'administrators',
+//        'teams',
+    ];
+
+    /**
      * The attributes that should be cast to native types.
      *
      * @var array
@@ -37,6 +47,8 @@ class School extends Model
      */
     public function administrators()
     {
-        return $this->belongsToMany(User::class, 'user_permission');
+        return $this->belongsToMany(User::class, 'user_permission')
+            ->withPivot('team_id')
+            ->withTimestamps();
     }
 }

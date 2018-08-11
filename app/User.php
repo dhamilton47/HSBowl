@@ -24,6 +24,15 @@ class User extends Authenticatable
     ];
 
     /**
+     * The relationships to always eager-load.
+     *
+     * @var array
+     */
+    protected $with = [
+        'administers',
+    ];
+
+    /**
      * The attributes that should be hidden for arrays.
      *
      * @var array
@@ -40,7 +49,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $casts = [
-        'confirmed' => 'boolean',
+        'email_confirmed' => 'boolean',
     ];
 
     /**
@@ -56,10 +65,10 @@ class User extends Authenticatable
     /**
      * Mark the user's account as confirmed.
      */
-    public function confirm()
+    public function emailConfirm()
     {
-        $this->confirmed = true;
-        $this->confirmation_token = null;
+        $this->email_confirmed = true;
+        $this->email_confirmation_token = null;
 
         $this->save();
     }
@@ -82,6 +91,8 @@ class User extends Authenticatable
      */
     public function administers()
     {
-        return $this->belongsToMany(School::class, 'user_permission');
+        return $this->belongsToMany(School::class, 'user_permission')
+            ->withPivot('team_id')
+            ->withTimestamps();
     }
 }

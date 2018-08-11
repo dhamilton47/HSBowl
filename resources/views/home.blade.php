@@ -1,7 +1,7 @@
-@extends('layouts.base')
+@extends('layouts.app')
 
 @section('content')
-<div class="col-md-8">
+<div class="col-md-9">
     <div class="card mt-5">
 
         <h1 class="card-header text-center">Welcome to High School Bowling</h1>

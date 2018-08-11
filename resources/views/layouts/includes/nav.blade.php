@@ -30,7 +30,8 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                        <a class="nav-link" href="{{ route('register.user') }}">{{ __('Register') }}</a>
+                        {{--<a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>--}}
                     </li>
                 @else
                     <li class="nav-item dropdown">

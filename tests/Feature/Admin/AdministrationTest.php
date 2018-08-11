@@ -16,7 +16,7 @@ class AdministrationTest extends TestCase
 //            $this->signIn()
             ->signIn()
             ->get(route('admin.dashboard.index'))
-            ->assertSee('You are on the administration dashboard')
+            ->assertSee('You have administrative rights to the following:')
             ->assertStatus(Response::HTTP_OK);
     }
 

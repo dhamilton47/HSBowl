@@ -3,10 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Mail\PleaseConfirmYourEmail;
-use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
@@ -30,7 +28,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = ('/');
+    protected $redirectTo = '/home';
 
     /**
      * Create a new controller instance.
@@ -50,13 +48,10 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        // Using max:191 instead of 255 due to MySQL version limitation
-
         return Validator::make($data, [
-            'name' => 'max:191',
-            'username' => 'required|max:191|unique:users|alpha_dash',
-            'email' => 'required|email|max:191|unique:users',
-            'password' => 'required|min:6|confirmed',
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:6|confirmed',
         ]);
     }
 
@@ -68,24 +63,10 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::forceCreate([
+        return User::create([
             'name' => $data['name'],
-            'username' => $data['username'],
             'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-            'confirmation_token' => str_limit(md5($data['email'].str_random()), 25, '')
+            'password' => Hash::make($data['password']),
         ]);
-    }
-
-    /**
-     * The user has been registered.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \App\User                $user
-     * @return void
-     */
-    protected function registered(Request $request, $user)
-    {
-        Mail::to($user)->send(new PleaseConfirmYourEmail($user));
     }
 }

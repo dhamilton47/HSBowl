@@ -27,7 +27,10 @@ $factory->define(App\User::class, function (Faker $faker) {
 
 $factory->define(App\School::class, function (Faker $faker) {
     return [
-        'name' => $faker->name,
+        'name' => $faker->name . ' High School',
+        'city' => $faker->city,
+        'state' => $faker->stateAbbr,
+        'district' => $faker->word,
     ];
 });
 
@@ -48,6 +51,7 @@ $factory->define(App\Player::class, function (Faker $faker) {
         'last_name' => $faker->lastName,
         'short_name' => $faker->firstName,
         'graduation_year' => $faker->year,
+        'gender' => $faker->randomElement(['F','M']),
     ];
 });
 

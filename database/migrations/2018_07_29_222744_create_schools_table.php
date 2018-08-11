@@ -15,10 +15,14 @@ class CreateSchoolsTable extends Migration
     {
         Schema::create('schools', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name', 100);
-            $table->string('city', 50)->nullable();
-            $table->string('state', 2)->nullable();
-            $table->string('district', 25)->nullable();
+            $table->string('name', 100)->unique();
+            $table->string('city', 50);
+            $table->string('state', 2);
+            $table->string('district', 25);
+            $table->boolean('team1')->default(false);
+            $table->boolean('team2')->default(false);
+            $table->boolean('team3')->default(false);
+            $table->boolean('team4')->default(false);
             $table->timestamps();
         });
     }
